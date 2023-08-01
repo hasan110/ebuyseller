@@ -221,7 +221,7 @@ export default {
       {
         headers: {
           'Content-Type': 'multipart/form-data',
-          'api_token':token
+          'x-api-key':token
         }
       })
       .then(res => {
@@ -256,7 +256,7 @@ export default {
       this.$axios.get(`store/get-categories`,
       {
         headers: {
-          'api_token':token
+          'x-api-key':token
         }
       })
       .then(res => {

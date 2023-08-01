@@ -79,7 +79,7 @@ export default {
       this.$axios.post(`store/discount-products`, {products:this.products},
       {
         headers: {
-          'api_token':token
+          'x-api-key':token
         }
       })
       .then(res => {
@@ -109,7 +109,7 @@ export default {
       this.$axios.post(`store/get-all-products` , this.filters ,
       {
         headers: {
-          'api_token':token
+          'x-api-key':token
         }
       })
       .then(res => {

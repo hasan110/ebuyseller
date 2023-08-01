@@ -269,7 +269,7 @@ export default {
       this.$axios.get(`store/order-details/`+this.order_id,
       {
         headers: {
-          'api_token':api_token
+          'x-api-key':api_token
         }
       })
       .then(res => {
@@ -287,7 +287,7 @@ export default {
       this.$axios.post(`store/change-order-status`,{order_id:this.order_id , status},
       {
         headers: {
-          'api_token':api_token
+          'x-api-key':api_token
         }
       })
       .then(res => {

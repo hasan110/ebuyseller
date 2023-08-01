@@ -87,7 +87,7 @@ export default {
       this.$axios.post(`store/order`,{status:'new' , page:this.current_page},
       {
         headers: {
-          'api_token':token
+          'x-api-key':token
         }
       })
       .then(res => {

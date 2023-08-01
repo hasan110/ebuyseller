@@ -6,7 +6,7 @@ export let baseUrl = 'https://panel.polexofficial.com/api/';
 
 const Axios = axios.create({
     baseURL: baseUrl,
-    headers: {'api_token': $cookies.get("SellerApiToken")}
+    headers: {'x-api-key': $cookies.get("SellerApiToken")}
 });
 
 export default Axios;

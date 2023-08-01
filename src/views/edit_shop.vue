@@ -150,7 +150,7 @@ export default {
       this.$axios.post(`store/get-data`,{id:this.store_id},
       {
         headers: {
-          'api_token':token
+          'x-api-key':token
         }
       })
       .then(res => {
@@ -181,7 +181,7 @@ export default {
       this.$axios.post(`store/edit`,form,
       {
         headers: {
-          'api_token':token
+          'x-api-key':token
         }
       })
       .then(res => {

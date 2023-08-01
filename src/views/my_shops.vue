@@ -99,7 +99,7 @@ export default {
       this.$axios.get(`store/list`,
       {
         headers: {
-          'api_token':api_token
+          'x-api-key':api_token
         }
       })
       .then(res => {

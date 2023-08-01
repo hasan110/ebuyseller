@@ -61,7 +61,7 @@ export default {
       this.$axios.get(`getSellerChatDetails/${this.chat_id}`,
       {
         headers: {
-          'api_token':token
+          'x-api-key':token
         }
       })
       .then(res => {
@@ -86,7 +86,7 @@ export default {
       this.$axios.post(`sendSellerChatMessage`, this.form ,
       {
         headers: {
-          'api_token':token
+          'x-api-key':token
         }
       })
       .then(res => {

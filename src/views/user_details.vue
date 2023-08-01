@@ -138,7 +138,7 @@ export default {
       this.$axios.post(`seller_update_profile`,this.info,
       {
         headers: {
-          'api_token':token
+          'x-api-key':token
         }
       })
       .then(res => {
@@ -171,7 +171,7 @@ export default {
       this.$axios.post(`getUserData`,{},
       {
         headers: {
-          'api_token':api_token
+          'x-api-key':api_token
         }
       })
       .then(res => {

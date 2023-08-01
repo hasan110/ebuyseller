@@ -139,7 +139,7 @@ export default {
       this.$axios.get(`store/data/`+this.store_id,
       {
         headers: {
-          'api_token':api_token
+          'x-api-key':api_token
         }
       })
       .then(res => {
@@ -157,7 +157,7 @@ export default {
       this.$axios.post(`store/delete-product`,{id:this.delete_product_id},
       {
         headers: {
-          'api_token':api_token
+          'x-api-key':api_token
         }
       })
       .then(res => {

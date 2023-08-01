@@ -95,7 +95,7 @@ export default {
       this.$axios.get(`get_bank_account`,
       {
         headers: {
-          'api_token':token
+          'x-api-key':token
         }
       })
       .then(res => {
@@ -129,7 +129,7 @@ export default {
       this.$axios.post(`edit_bank_account`,form,
       {
         headers: {
-          'api_token':token
+          'x-api-key':token
         }
       })
       .then(res => {

@@ -159,7 +159,7 @@ export default {
       this.$axios.post(`store/add`,form,
       {
         headers: {
-          'api_token':token
+          'x-api-key':token
         }
       })
       .then(res => {
