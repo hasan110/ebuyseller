@@ -103,7 +103,20 @@
 
             </div>
           </div>
-          
+
+          <v-row class="mt-3">
+            <v-col
+              cols="12"
+              v-for="(item , key) in product.images_description" :key="key"
+            >
+              <v-text-field
+                :label="'توضیح تصویر ' + (key+1)"
+                outlined dense
+                v-model="product.images_description[key]"
+              ></v-text-field>
+            </v-col>
+          </v-row>
+
         </v-container>
         
         <div class="absolute-action-wrapper">
@@ -172,7 +185,8 @@ export default {
     errors:{},
     categories:[],
     product:{
-      images:[]
+      images:[],
+      images_description:[],
     },
     store_id:null,
     selected_picture:null,
@@ -186,13 +200,14 @@ export default {
       this.current_selected_picture_type = pic.type;
       this.selected_picture = URL.createObjectURL(pic);
       this.product.images.push('item');
+      this.product.images_description.push('');
       this.crop_dialog = true
     },
     picture_cropped() {
       const { coordinates , canvas } = this.$refs.picture_cropper.getResult();
 			const img = canvas.toDataURL(this.current_selected_picture_type);
 
-      es[this.product.images.length - 1] = img;
+      this.product.images[this.product.images.length - 1] = img;
     },
     saveProduct(){
       this.loading = true
@@ -201,7 +216,7 @@ export default {
       const form = new FormData;
 
       for (const [key, value] of Object.entries(this.product)) {
-        if(value && key !== 'images')
+        if(value && key !== 'images' && key !== 'images_description')
         {
           form.append(key , value);
         }
@@ -212,6 +227,7 @@ export default {
         for (var i = 0; i < this.product.images.length; i++ ){
             let file = this.product.images[i];
             form.append('images[' + i + ']', file);
+            form.append('images_description[' + i + ']', this.product.images_description[i]);
         }
       }
 

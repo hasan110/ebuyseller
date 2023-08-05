@@ -98,6 +98,7 @@
               </label>
 
               <div v-for="(file , key) in product.files" :key="key" class="file-preview">
+                <span class="remove-image" @click="removeImage(key)"><i class="fa fa-times"></i></span>
                 <img :src="ImageUrl + file.path">
               </div>
 
@@ -107,6 +108,35 @@
 
             </div>
           </div>
+
+          <v-row class="mt-3">
+            <v-col
+              cols="12"
+            >
+              <div v-for="(item , key) in product.files" :key="key">
+                <v-text-field
+                  label="توضیح تصویر"
+                  disabled
+                  outlined dense
+                  :value="item.description"
+                ></v-text-field>
+              </div>
+            </v-col>
+          </v-row>
+
+          <v-row class="mt-3">
+            <v-col
+              cols="12"
+            >
+              <div v-for="(item , key) in product.new_images_description" :key="key">
+                <v-text-field
+                  :label="'توضیح تصویر جدید ' + (key+1)"
+                  outlined dense
+                  v-model="product.new_images_description[key]"
+                ></v-text-field>
+              </div>
+            </v-col>
+          </v-row>
 
         </v-container>
 
@@ -176,7 +206,9 @@ export default {
     errors:{},
     categories:[],
     product:{
-      new_images: []
+      removed_images: [],
+      new_images: [],
+      new_images_description: []
     },
     product_id:null,
     selected_picture:null,
@@ -188,13 +220,17 @@ export default {
       const pic = event.target.files[0];
       this.selected_picture = URL.createObjectURL(pic);
       this.product.new_images.push('item');
+      this.product.new_images_description.push('');
       this.crop_dialog = true
     },
     picture_cropped() {
       const { coordinates , canvas } = this.$refs.picture_cropper.getResult();
       const img = canvas.toDataURL("image/png", 0.1);
-      console.log(this.product.new_images)
       this.product.new_images[this.product.new_images.length - 1] = img;
+    },
+    removeImage(imageKey) {
+      this.product.files.splice(imageKey , 1);
+      this.product.removed_images.push(imageKey);
     },
     getProduct(){
       const token = this.getToken()
@@ -219,7 +255,7 @@ export default {
       const form = new FormData;
 
       for (const [key, value] of Object.entries(this.product)) {
-        if(value && key !== 'images' && key !== 'new_images')
+        if(value && key !== 'images' && key !== 'new_images' && key !== 'new_images_description')
         {
           form.append(key , value);
         }
@@ -230,6 +266,7 @@ export default {
         for (var i = 0; i < this.product.new_images.length; i++ ){
           let file = this.product.new_images[i];
           form.append('new_images[' + i + ']', file);
+          form.append('new_images_description[' + i + ']', this.product.new_images_description[i]);
         }
       }
 
@@ -269,16 +306,16 @@ export default {
     getCategoryList(){
       const token = this.getToken()
       this.$axios.get(`store/get-categories`,
-        {
-          headers: {
-            'x-api-key':token
-          }
-        })
-        .then(res => {
-          this.categories = res.data.data
-        })
-        .catch( () => {
-        });
+      {
+        headers: {
+          'x-api-key':token
+        }
+      })
+      .then(res => {
+        this.categories = res.data.data
+      })
+      .catch( () => {
+      });
     }
   },
   created() {
